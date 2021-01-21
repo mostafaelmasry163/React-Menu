@@ -10,6 +10,7 @@ import Menu from './menuComponent';
 import NotFound from './notFoundComponent';
 import Admin from './adminComponent';
 import ProductForm from './ProductFormComponent';
+import { URL } from './UrlComponent';
 
 class App extends Component {
 state= {
@@ -18,7 +19,7 @@ state= {
 
 async componentDidMount(){
     //call BackEnd
-    let {data} = await axios.get("http://localhost:8000/products");
+    let {data} = await axios.get(URL);
 
     //convert object reterned from firebase to array
     // const dataArray =[];
@@ -40,7 +41,7 @@ handleDelete = async (product) => {
     this.setState({ products });
 
     try {
-    await axios.delete( "http://localhost:8000/products/" + product.id);
+    await axios.delete( URL + product.id);
     } catch (ex) {
     toast("can't Delete");
     this.setState({products: oldProducts});
