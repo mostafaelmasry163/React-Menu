@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { URL } from './UrlComponent';
 
 class ProductForm extends Component {
     state = { 
@@ -11,7 +12,7 @@ class ProductForm extends Component {
      async componentDidMount() {
          const id = this.props.match.params.id;
          if(id !== "new") {
-             const { data } = await axios.get("http://localhost:8000/products/" + id);
+             const { data } = await axios.get(URL + id);
              //clone 
              const state = { ...this.state };
              //edit
@@ -34,7 +35,7 @@ class ProductForm extends Component {
                 isInCart:false,
                 id: this.props.products[this.props.products.length - 1].id +1,
              };
-             await axios.post("http://localhost:8000/products/",obj);
+             await axios.post(URL,obj);
          } else {
              //edit
              const obj ={
@@ -45,7 +46,7 @@ class ProductForm extends Component {
              //delete id
              delete obj.id;
 
-             await axios.put("http://localhost:8000/products/"+ this.state.id,obj);
+             await axios.put(URL+ this.state.id,obj);
          }
 
          this.props.history.replace('/admin')
